@@ -23,7 +23,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Pull data
-        run: echo "Simulating dvc pull"
+        run: echo "Simulating dvc pull"   # لو عندك DVC حقيقي استبدلي بـ dvc pull
 
       - name: Train model
         env:
@@ -55,6 +55,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: 3.10
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
       - name: Run threshold check
         run: python check_threshold.py
