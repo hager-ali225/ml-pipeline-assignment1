@@ -19,9 +19,5 @@ jobs:
           echo "Training model..."
           echo "Accuracy: 0.92"
           echo "Run ID: abc123"
-          if [ 1 -eq 1 ]; then
-            echo "Model passed ✅"
-          else
-            echo "Model failed ❌"
-          fi
+          echo "Model passed ✅"
           echo "Mock Docker Build: Building Docker image for Run ID: abc123"
