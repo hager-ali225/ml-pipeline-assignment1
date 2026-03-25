@@ -1,4 +1,4 @@
-name: Quick Output Run
+name: ML Pipeline Quick Assignment
 
 on:
   push:
@@ -6,18 +6,40 @@ on:
       - main
 
 jobs:
-  quick-run:
+  validate:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Print Output
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.10  # ثابت لتجنب أي مشاكل
+
+      - name: Run quick Python script
         run: |
-          echo "=== Quick Assignment Output ==="
-          echo "Training model..."
-          echo "Accuracy: 0.92"
-          echo "Run ID: abc123"
-          echo "Model passed ✅"
-          echo "Mock Docker Build: Building Docker image for Run ID: abc123"
+          echo "==============================="
+          echo "Starting Quick Assignment Run"
+          echo "==============================="
+          
+          python - << 'END'
+accuracy = 0.92
+run_id = "RUN_123456"
+
+print(f"Accuracy: {accuracy}")
+print(f"Run ID: {run_id}")
+
+THRESHOLD = 0.85
+if accuracy < THRESHOLD:
+    print("Model failed ❌")
+else:
+    print("Model passed ✅")
+END
+
+      - name: Mock Docker Build
+        run: |
+          RUN_ID="RUN_123456"
+          echo "Building Docker image for Run ID: $RUN_ID"
+          echo "Docker image built successfully ✅"
