@@ -5,13 +5,10 @@ on:
     branches:
       - main
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
-
   validate:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -19,7 +16,7 @@ jobs:
         with:
           python-version: '3.10'
 
-      - run: pip install dvc mlflow
+      - run: pip install mlflow dvc
 
       - run: python train.py
 
@@ -33,6 +30,7 @@ jobs:
   deploy:
     needs: validate
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
