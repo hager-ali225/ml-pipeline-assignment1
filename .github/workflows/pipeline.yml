@@ -1,4 +1,4 @@
-name: Quick Assignment Output
+name: Quick Output
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
 jobs:
   quick-run:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -15,34 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: 3.10
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Pull data
-        run: echo "Simulating dvc pull"
-
-      - name: Train model
-        run: |
-          echo "Accuracy: 0.92"
-          echo "Run ID: run_123"
-          echo "0.92" > accuracy.txt
-          echo "run_123" > model_info.txt
-
-      - name: Check threshold
-        run: |
-          THRESHOLD=0.85
-          ACC=$(cat accuracy.txt)
-          echo "Accuracy: $ACC"
-          if (( $(echo "$ACC < $THRESHOLD" | bc -l) )); then
-            echo "Model failed ❌"
-            exit 1
-          else
-            echo "Model passed ✅"
-          fi
-
-      - name: Mock Docker Build
-        run: |
-          RUN_ID=$(cat model_info.txt)
-          echo "Building Docker image for Run ID: $RUN_ID"
+      - name: Run quick output
+        run: python quick_output.py
